@@ -1,16 +1,55 @@
-# Tauri + Vue + TypeScript
+# 梯航智能车创新工作室裁判系统
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目介绍
 
-## Recommended IDE Setup
+> 智能车创新工作室裁判系统，硬件部分采用STM32G431，系统采用RT-Thread，客户端部分采用Tauri + Vue3。
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## 硬件部分
 
-## Type Support For `.vue` Imports in TS
+> 略
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+## 客户端部分
+### 技术介绍
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+> Tauri
+> Vue3
+> TypeScript
+> Ant-Design-Vue
+> Vite
+> Node.js
+> Rust
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+#### Tauri
+> Tauri 是一个 Rust 构建的跨平台桌面应用框架，它提供了 Rust 和 WebAssembly 的双向交互能力，并且可以打包成各种平台。
+
+#### Vue3
+> Vue3 是一个渐进式 JavaScript 框架，它允许我们快速地构建用户界面，并且可以轻松地使用 TypeScript。
+
+#### TypeScript
+> TypeScript 是 JavaScript 的超集，它允许我们使用类型检查，从而提高代码的可读性和可维护性。
+
+#### Ant-Design-Vue
+> Ant Design 是一套企业级设计语言，它提供了一套设计语言和一套组件库，用于帮助开发者快速设计出高质量的产品。
+
+#### Vite
+> Vite 是一个快速、轻量级的前端构建工具，它使用 Rollup 进行构建，并且可以支持 TypeScript。
+
+#### Node.js
+> Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，它允许我们使用 JavaScript 在服务器端运行代码。
+
+#### Rust
+> Rust 是一个 systems programming language，它提供了安全、并发和类型系统的保证，并且可以轻松地与 C 语言交互。
+
+### 运行
+1. 安装依赖
+```bash
+pnpm install
+```
+2. 运行
+```bash
+pnpm run tauri dev
+```
+3. 打包
+```bash
+pnpm run tauri build
+```

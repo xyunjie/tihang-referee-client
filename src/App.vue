@@ -1,161 +1,107 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import { invoke } from "@tauri-apps/api/core";
-
-const greetMsg = ref("");
-const name = ref("");
-
-async function greet() {
-  // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke("greet", { name: name.value });
-}
-</script>
-
 <template>
-  <main class="container">
-    <h1>Welcome to Tauri + Vue</h1>
+  <a-layout id="app" class="app-layout">
+    <!-- 顶部导航栏 -->
+    <a-layout-header class="header">
+      <div class="logo">管理系统</div>
+      <a-menu theme="dark" mode="horizontal" :default-selected-keys="['dashboard']">
+        <a-menu-item key="dashboard">
+          <router-link to="/dashboard">首页</router-link>
+        </a-menu-item>
+        <a-menu-item key="users">
+          <router-link to="/users">用户管理</router-link>
+        </a-menu-item>
+        <a-menu-item key="settings">
+          <router-link to="/settings">设置</router-link>
+        </a-menu-item>
+      </a-menu>
+    </a-layout-header>
 
-    <div class="row">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
-    </div>
-    <p>点击 Tauri、Vite 和 Vue logo 了解更多信息.</p>
+    <a-layout>
+      <!-- 侧边栏 -->
+      <a-layout-sider width="200" class="sider">
+        <a-menu
+          theme="dark"
+          mode="inline"
+          :default-selected-keys="['dashboard']"
+        >
+          <a-menu-item key="dashboard">
+            <router-link to="/dashboard">首页</router-link>
+          </a-menu-item>
+          <a-menu-item key="users">
+            <router-link to="/users">用户管理</router-link>
+          </a-menu-item>
+          <a-menu-item key="settings">
+            <router-link to="/settings">设置</router-link>
+          </a-menu-item>
+        </a-menu>
+      </a-layout-sider>
 
-    <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name..." />
-      <a-button type="primary" htmlType="submit">Greet</a-button>
-      <!-- <button type="submit">Greet</button> -->
-    </form>
-    <p>{{ greetMsg }}</p>
-  </main>
+      <!-- 主体内容区域 -->
+      <a-layout-content class="content">
+        <router-view></router-view>  <!-- 渲染路由视图 -->
+      </a-layout-content>
+    </a-layout>
+
+    <!-- 页脚 -->
+    <a-layout-footer class="footer">
+      <div>© 2024 管理系统 | All Rights Reserved</div>
+    </a-layout-footer>
+  </a-layout>
 </template>
 
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'App',
+});
+</script>
+
 <style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
+.app-layout {
+  min-height: 100vh;
 }
 
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
-}
-
-</style>
-<style>
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
+.header {
+  background: #001529;
+  padding: 0 20px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
+.sider {
+  background: #001529;
 }
 
-.row {
-  display: flex;
-  justify-content: center;
+.content {
+  padding: 24px;
+  background: #f0f2f5;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-h1 {
+.footer {
   text-align: center;
+  background: #001529;
+  color: white;
+  padding: 10px;
 }
 
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+.ant-menu {
+  background: #001529;
+  border-bottom: none;
 }
 
-button {
-  cursor: pointer;
+.ant-menu-item {
+  color: white;
 }
 
-button:hover {
-  border-color: #396cd8;
+.ant-menu-item-selected {
+  background-color: #1890ff !important;
 }
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
-  }
-
-  a:hover {
-    color: #24c8db;
-  }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
-  }
-}
-
 </style>
