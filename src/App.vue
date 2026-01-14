@@ -1,107 +1,135 @@
 <template>
-  <a-layout id="app" class="app-layout">
-    <!-- 顶部导航栏 -->
-    <a-layout-header class="header">
-      <div class="logo">管理系统</div>
-      <a-menu theme="dark" mode="horizontal" :default-selected-keys="['dashboard']">
-        <a-menu-item key="dashboard">
-          <router-link to="/dashboard">首页</router-link>
-        </a-menu-item>
-        <a-menu-item key="users">
-          <router-link to="/users">用户管理</router-link>
-        </a-menu-item>
-        <a-menu-item key="settings">
-          <router-link to="/settings">设置</router-link>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-header>
-
-    <a-layout>
-      <!-- 侧边栏 -->
-      <a-layout-sider width="200" class="sider">
-        <a-menu
-          theme="dark"
-          mode="inline"
-          :default-selected-keys="['dashboard']"
-        >
-          <a-menu-item key="dashboard">
-            <router-link to="/dashboard">首页</router-link>
-          </a-menu-item>
-          <a-menu-item key="users">
-            <router-link to="/users">用户管理</router-link>
-          </a-menu-item>
-          <a-menu-item key="settings">
-            <router-link to="/settings">设置</router-link>
-          </a-menu-item>
-        </a-menu>
-      </a-layout-sider>
-
-      <!-- 主体内容区域 -->
-      <a-layout-content class="content">
-        <router-view></router-view>  <!-- 渲染路由视图 -->
-      </a-layout-content>
-    </a-layout>
-
-    <!-- 页脚 -->
-    <a-layout-footer class="footer">
-      <div>© 2024 管理系统 | All Rights Reserved</div>
-    </a-layout-footer>
-  </a-layout>
+  <a-config-provider :locale="zhCN">
+    <component :is="layoutComponent">
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </component>
+  </a-config-provider>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed, defineAsyncComponent } from 'vue';
+import { useRoute } from 'vue-router';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
 
-export default defineComponent({
-  name: 'App',
+// 导入布局组件
+const DefaultLayout = defineAsyncComponent(() => import('@/layouts/DefaultLayout.vue'));
+const MainLayout = defineAsyncComponent(() => import('@/layouts/MainLayout.vue'));
+
+const route = useRoute();
+
+// 布局类型定义
+type LayoutType = 'default' | 'main';
+
+// 根据路由 meta 获取布局类型
+const layoutType = computed<LayoutType>(() => {
+  return (route.meta?.layout as LayoutType) || 'default';
+});
+
+// 根据布局类型返回对应的布局组件
+const layoutComponent = computed(() => {
+  switch (layoutType.value) {
+    case 'main':
+      return MainLayout;
+    case 'default':
+    default:
+      return DefaultLayout;
+  }
 });
 </script>
 
-<style scoped>
-.app-layout {
-  min-height: 100vh;
+<style>
+/* ========== 全局样式重置 ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.header {
-  background: #001529;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+html,
+body {
+  height: 100%;
 }
 
-.logo {
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
+#app {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.sider {
-  background: #001529;
+/* ========== 路由过渡动画 ========== */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.content {
-  padding: 24px;
-  background: #f0f2f5;
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
-.footer {
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* ========== 滚动条样式 ========== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 移动端滚动条 */
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+/* ========== Ant Design 样式覆盖 ========== */
+.ant-layout {
+  background: #f5f7fa;
+}
+
+/* ========== 全局工具类 ========== */
+.text-center {
   text-align: center;
-  background: #001529;
-  color: white;
-  padding: 10px;
 }
 
-.ant-menu {
-  background: #001529;
-  border-bottom: none;
+.text-right {
+  text-align: right;
 }
 
-.ant-menu-item {
-  color: white;
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ant-menu-item-selected {
-  background-color: #1890ff !important;
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

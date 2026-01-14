@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "id": "camera",
+      "name": "光电组",
+      "description": "使用光电传感器的智能车",
+      "rule": {
+        "laps": 1
+      }
+    },
+    {
+      "id": "magnetic",
+      "name": "电磁组",
+      "description": "使用电磁传感器的智能车",
+      "rule": {
+        "laps": 1
+      }
+    },
+    {
+      "id": "balance",
+      "name": "平衡组",
+      "description": "两轮平衡智能车",
+      "rule": {
+        "laps": 1
+      }
+    },
+    {
+      "id": "ai",
+      "name": "AI组",
+      "description": "人工智能视觉识别智能车",
+      "rule": {
+        "laps": 1
+      }
+    }
+  ]
+}

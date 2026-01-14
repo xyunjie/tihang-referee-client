@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install)",
+      "Bash(pnpm run tauri dev:*)",
+      "Bash(pnpm add:*)",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 1420 -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_OwningProcess -Force -ErrorAction SilentlyContinue }\")",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)"
+    ]
+  }
+}
