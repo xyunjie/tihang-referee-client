@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import UnoCSS from 'unocss/vite';
 import { resolve } from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -11,7 +12,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [vue()],
+  plugins: [vue(), UnoCSS()],
 
   clearScreen: false,
   server: {

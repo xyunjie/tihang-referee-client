@@ -1,20 +1,20 @@
 <template>
-  <div class="training-page">
-    <div class="header">
-      <a-button type="text" @click="goBack" class="back-btn">
+  <div class="min-h-screen bg-#f5f7fa">
+    <div class="bg-gradient-success p-20px-30px flex justify-between items-center shadow-md">
+      <a-button type="text" @click="goBack" class="text-white! text-16px">
         <arrow-left-outlined /> 返回
       </a-button>
-      <h1 class="title">训练模式</h1>
-      <div class="placeholder"></div>
+      <h1 class="text-24px font-600 text-white m-0">训练模式</h1>
+      <div class="w-80px"></div>
     </div>
 
-    <div class="content">
-      <a-card class="scan-card" :bordered="false">
-        <div class="scan-area">
-          <div v-if="!currentTeam" class="scan-prompt">
-            <scan-outlined class="scan-icon" />
-            <h2>请扫描二维码或刷NFC卡</h2>
-            <p class="hint">识别队伍身份后开始训练</p>
+    <div class="p-24px flex flex-col gap-24px">
+      <a-card class="rounded-12px" :bordered="false">
+        <div class="min-h-400px flex items-center justify-center">
+          <div v-if="!currentTeam" class="text-center max-w-400px w-full">
+            <scan-outlined class="text-80px text-success mb-24px animate-pulse-custom" />
+            <h2 class="text-24px mb-8px text-#262626">请扫描二维码或刷NFC卡</h2>
+            <p class="text-#8c8c8c mb-32px">识别队伍身份后开始训练</p>
 
             <a-divider>或</a-divider>
 
@@ -41,7 +41,7 @@
             </a-space>
           </div>
 
-          <div v-else class="team-info">
+          <div v-else class="w-full max-w-600px">
             <a-result status="success" title="身份识别成功">
               <template #icon>
                 <check-circle-outlined style="color: #52c41a" />
@@ -82,7 +82,7 @@
         </div>
       </a-card>
 
-      <a-card title="最近训练记录" class="records-card" :bordered="false">
+      <a-card title="最近训练记录" class="rounded-12px" :bordered="false">
         <a-table
           :columns="recordColumns"
           :data-source="recentRecords"
@@ -191,65 +191,8 @@ const resetTeam = () => {
 </script>
 
 <style scoped>
-.training-page {
-  min-height: 100vh;
-  background: #f5f7fa;
-}
-
-.header {
+.bg-gradient-success {
   background: linear-gradient(135deg, #52c41a 0%, #389e0d 100%);
-  padding: 20px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.back-btn {
-  color: white !important;
-  font-size: 16px;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 600;
-  color: white;
-  margin: 0;
-}
-
-.placeholder {
-  width: 80px;
-}
-
-.content {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.scan-card {
-  border-radius: 12px;
-}
-
-.scan-area {
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.scan-prompt {
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.scan-icon {
-  font-size: 80px;
-  color: #52c41a;
-  margin-bottom: 24px;
-  animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
@@ -263,45 +206,7 @@ const resetTeam = () => {
   }
 }
 
-.scan-prompt h2 {
-  font-size: 24px;
-  margin-bottom: 8px;
-  color: #262626;
-}
-
-.hint {
-  color: #8c8c8c;
-  margin-bottom: 32px;
-}
-
-.team-info {
-  width: 100%;
-  max-width: 600px;
-}
-
-.records-card {
-  border-radius: 12px;
-}
-
-@media (max-width: 768px) {
-  .header {
-    padding: 16px 20px;
-  }
-
-  .title {
-    font-size: 20px;
-  }
-
-  .content {
-    padding: 16px;
-  }
-
-  .scan-icon {
-    font-size: 60px;
-  }
-
-  .scan-prompt h2 {
-    font-size: 20px;
-  }
+.animate-pulse-custom {
+  animation: pulse 2s ease-in-out infinite;
 }
 </style>
